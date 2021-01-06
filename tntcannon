@@ -16,7 +16,7 @@ h2 {
     text-align: center;
 }
 p {
-   color: green;
+   color: red;
    text-align: center;
 }
 </style>
