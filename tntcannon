@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Graham's Minecraft Building Ideas</title>
+</head>
+<style>
+body {
+     background-color: orange;
+}
+h1 {
+    color: green;
+    text-align: center;
+}
+h2 {
+    color: black;
+    text-align: center;
+}
+p {
+   color: green;
+   text-align: center;
+}
+</style>
+<body>
+<h1>Graham's Minecraft Building Ideas</h1>
+<h2>How to Make an *OP* TNT Cannon<h2>
+<br></br>
+<p>Materials list:</p>
+<p>Block of choice</p>
+<p>Slab of choice</p>
+<p>Dispenser</p>
+<p>Redstone</p>
+<p>Button of choice</p>
+<p>Bucket of water</p>
+<p><a href=index.htm><img src=https://image.flaticon.com/icons/svg/25/25694.svg style=width:100px;length:100px></p>
