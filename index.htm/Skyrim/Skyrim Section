@@ -1,0 +1,38 @@
+!DOCTYPE html>
+<html>
+<head>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<title>Skyrim Section</title>
+</head>
+<style>
+body { 
+      background-color: black;
+}
+h1 {
+    color: green;
+    text-align: center;
+}
+h2 {
+    color: green;
+    text-align: center;
+}
+h3 {
+    color: green;
+    text-align: center;
+}
+p {
+   color: green;
+   text-align: center;
+}
+</style>
+<body>
+      <h1>Skyrim Section</h1>
+<h2>Homepage</h2>
+     <br></br>
+     <img src=https://c.wallhere.com/photos/a9/06/1920x1200_px_minimalism_The_Elder_Scrolls_V_Skyrim_video_games-715628.jpg!d style=width:100%;length:750>
+     <p><a href=index.html>Back to Homepage</p>
+</body>
+</html>
