@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Click Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        #game-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            border: 1px solid black;
+            cursor: crosshair;
+            display: none;
+        }
+
+        #target {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        #score-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+            display: none;
+        }
+
+        #time-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 20px;
+            display: none;
+        }
+
+        #fullscreen-button {
+            position: fixed;
+            top: 10px;
+            left: 70px;
+            display: none;
+        }
+
+        #start-menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 30px;
+        }
+
+        #start-button {
+            padding: 10px 20px;
+            background-color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #game-over-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 30px;
+        }
+
+        #final-score {
+            margin-top: 20px;
+        }
+
+        #restart-button {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="target"></div>
+    </div>
+
+    <div id="score-container">
+        <p>Score: <span id="score">0</span></p>
+    </div>
+    <div id="time-container">
+        <p>Time Left: <span id="time">10</span> seconds</p>
+    </div>
+    <button id="fullscreen-button">Fullscreen</button>
+    <div id="start-menu">
+        <p>Dot Dash by ChatGPT</p>
+        <button id="start-button">Start</button>
+    </div>
+    <div id="game-over-container">
+        <p>Game Over</p>
+        <p>Your Score: <span id="final-score">0</span></p>
+        <button id="restart-button">Restart</button>
+    </div>
+
+    <script>
+        var score = 0;
+        var time = 10;
+        var timerId;
+
+        function startGame() {
+            score = 0;
+            time = 10;
+            updateScore();
+            updateTime();
+            document.getElementById("start-menu").style.display = "none";
+            document.getElementById("game-container").style.display = "block";
+            document.getElementById("score-container").style.display = "block";
+            document.getElementById("time-container").style.display = "block";
+            document.getElementById("fullscreen-button").style.display = "block";
+            timerId = setInterval(updateTime, 1000);
+            moveTarget();
+        }
+
+        function updateScore() {
+            document.getElementById("score").textContent = score;
+        }
+
+        function updateTime() {
+            if (time === 0) {
+                clearInterval(timerId);
+                endGame();
+                return;
+            }
+
+            document.getElementById("time").textContent = time;
+            time--;
+        }
+
+        function moveTarget() {
+            var gameContainer = document.getElementById("game-container");
+            var target = document.getElementById("target");
+            var containerWidth = gameContainer.offsetWidth;
+            var containerHeight = gameContainer.offsetHeight;
+            var targetSize = target.offsetWidth;
+
+            var maxLeft = containerWidth - targetSize;
+            var maxTop = containerHeight - targetSize;
+            var minTop = 100; // Minimum distance from the top of the screen
+
+            var left = Math.floor(Math.random() * maxLeft);
+            var top = Math.floor(Math.random() * (maxTop - minTop) + minTop);
+
+            target.style.left = left + "px";
+            target.style.top = top + "px";
+        }
+
+        function incrementScore() {
+            if (time > 0) {
+                var target = document.getElementById("target");
+                if (event.target === target) {
+                    score++;
+                    updateScore();
+                    moveTarget();
+                }
+            }
+        }
+
+        function endGame() {
+            document.getElementById("game-container").style.display = "none";
+            document.getElementById("score-container").style.display = "none";
+            document.getElementById("time-container").style.display = "none";
+            document.getElementById("fullscreen-button").style.display = "none";
+            document.getElementById("restart-button").style.display = "block";
+            document.getElementById("final-score").textContent = score;
+            document.getElementById("game-over-container").style.display = "block";
+            document.getElementById("restart-button").addEventListener("click", restartGame);
+        }
+
+        function restartGame() {
+            document.getElementById("game-container").style.display = "block";
+            document.getElementById("score-container").style.display = "block";
+            document.getElementById("time-container").style.display = "block";
+            document.getElementById("fullscreen-button").style.display = "block";
+            document.getElementById("restart-button").style.display = "none";
+            document.getElementById("final-score").textContent = 0;
+            document.getElementById("game-over-container").style.display = "none";
+            document.getElementById("restart-button").removeEventListener("click", restartGame);
+            startGame();
+        }
+
+        document.getElementById("start-button").addEventListener("click", startGame);
+        document.getElementById("game-container").addEventListener("click", incrementScore);
+        document.getElementById("fullscreen-button").addEventListener("click", function () {
+            var gameContainer = document.documentElement;
+
+            if (gameContainer.requestFullscreen) {
+                gameContainer.requestFullscreen();
+            } else if (gameContainer.mozRequestFullScreen) {
+                gameContainer.mozRequestFullScreen();
+            } else if (gameContainer.webkitRequestFullscreen) {
+                gameContainer.webkitRequestFullscreen();
+            } else if (gameContainer.msRequestFullscreen) {
+                gameContainer.msRequestFullscreen();
+            }
+        });
+    </script>
+</body>
+</html>
